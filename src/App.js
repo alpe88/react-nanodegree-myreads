@@ -20,14 +20,14 @@ class BooksApp extends React.Component {
       books: []
   	}
 
-	componentDidMount() {
-      BooksAPI.getAll()
-        .then((books) => {
-          this.setState(() => ({
-            books
-          }))
-        })
-  	}
+ componentDidMount() {
+        BooksAPI.getAll()
+          .then((books) => {
+            this.setState(() => ({
+              books
+            }))
+          })
+  		}
 
 
   render() {
@@ -51,18 +51,23 @@ class BooksApp extends React.Component {
               </div>
             </div>
             <div className="search-books-results">
-              <ol className="books-grid">{console.log(this.state.books)}</ol>
+              <ol className="books-grid"></ol>
             </div>
           </div>
        	</div>
         ) : (
-
-          <div>
-         	<Bookshelves />
-
-          <div className="open-search">
+		<div className="list-books">
+            <div className="list-books-title">
+              <h1>MyReads</h1>
+            </div>
+            <div className="list-books-content">
+				<Bookshelves books={this.state.books} />
+			</div>
+            <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
-            </div></div>
+            </div>
+          </div>
+
         )}
       </div>
     )
