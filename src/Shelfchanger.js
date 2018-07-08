@@ -1,27 +1,36 @@
 import React, { Component } from 'react'
+import * as BooksAPI from './BooksAPI'
 
 class Shelfchanger extends Component {
+   
 
-  	state = {
-      bookshelfSelectorValue: 'none'
-    }
-
-    updateBookshelfType = (selectedValue) => {
-        this.setState(() => ({
-          bookshelfSelectorValue: selectedValue,
-
-          })
-        )
+     updateBookshelfTypeSelector = (newBookshelf) => {
+           this.setState(() => ({
+            currentBookshelf: newBookshelf,
+            })
+          )
+        }
+       
+       updateBook = (book, newBookshelf) => {
+        console.log(book.title +' is now on '+ newBookshelf)
+          BooksAPI.update(book,newBookshelf)
+             .then((book) => {
+             this.setState(() => ({
+              currentBookshelf: newBookshelf,
+              })
+            )
+        })
+        
       }
+    
 
 render(){
-     // const { bookshelfType } = this.props
-      const { bookshelfSelectorValue } = this.state
+     const { book } = this.props
 
     	return (
-        	<div>
+        	<div key={book.id}>
           		<div className="book-shelf-changer">
-					<select value={bookshelfSelectorValue} onClick={(event) => this.props.updateBookshelfType(event.target.value)} ref='shelfselector'>
+					<select value={book.shelf} onChange={(event) => this.updateBook(book, event.target.value)}>
                       <option value="move" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
