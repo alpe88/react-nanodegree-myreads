@@ -3,11 +3,10 @@ import Shelfchanger from './Shelfchanger'
 
 
 class Book extends Component {
+     state = {
+          currentBookshelf: 'none'
+     }
 
-    /*switchBookshelf = (book,shelf) => {
-           BooksAPI.update(book,shelf)
-           .then(console.log(book.title))
-        }*/
 render(){
    const { book } = this.props
     return (
