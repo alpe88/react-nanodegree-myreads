@@ -15,8 +15,8 @@ render(){
                           <ol className="books-grid">
                             {books.map((book) => (
                                <div key={book.id}> 
-                                 {book.shelf === 'wantToRead' && (
-                                  <li>{console.log(book.shelf)}
+                                 {bookshelf.type === book.shelf && (
+                                  <li>
                                    <Book book={book} />
                                   </li>
                                   )}
