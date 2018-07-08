@@ -1,6 +1,6 @@
 import React from 'react'
 import * as BooksAPI from './BooksAPI'
-import Bookshelves from './Bookshelves'
+import Bookshelf from './Bookshelf'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -17,7 +17,32 @@ class BooksApp extends React.Component {
       /**
       * Added array to store all books
       **/
-      books: []
+      books: [],
+    
+    bookshelfs: [
+        {
+         'id':'458485dfbxgc',
+         'type':'currentlyReading',
+         'title':'Currently Reading'
+        },
+        {
+         'id':'zcvbm07845',
+         'type':'wantToRead',
+         'title':'Want to Read'
+        },
+        {
+         'id':'4w6iet6yilu',
+         'type':'read',
+         'title':'Read'
+        },
+        {
+         'id':'08pt7e68576',
+         'type':'none',
+         'title':'None'
+        }
+      ]
+      
+      
   	}
 
  componentDidMount() {
@@ -27,10 +52,13 @@ class BooksApp extends React.Component {
               books
             }))
           })
-  		}
+        }
 
 
   render() {
+    
+    const { bookshelfs, books } = this.state
+    
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -61,8 +89,14 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-				<Bookshelves books={this.state.books} />
-			</div>
+               <div>
+                  {bookshelfs.map((bookshelf) => (
+                   <div key={bookshelf.id}> 
+                   <Bookshelf bookshelf={bookshelf} books={books} />
+            </div>
+         ))}
+        </div>
+      </div>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
             </div>
