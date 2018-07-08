@@ -3,17 +3,25 @@ import React, { Component } from 'react'
 class Shelfchanger extends Component {
 
   	state = {
-      value: 'none'
+      bookshelfSelectorValue: 'none'
     }
 
-    
-	
-	render(){
-      const { bookshelfType } = this.props
+    updateBookshelfType = (selectedValue) => {
+        this.setState(() => ({
+          bookshelfSelectorValue: selectedValue,
+
+          })
+        )
+      }
+
+render(){
+     // const { bookshelfType } = this.props
+      const { bookshelfSelectorValue } = this.state
+
     	return (
         	<div>
           		<div className="book-shelf-changer">
-					<select value={bookshelfType}>
+					<select value={bookshelfSelectorValue} onClick={(event) => this.props.updateBookshelfType(event.target.value)} ref='shelfselector'>
                       <option value="move" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
