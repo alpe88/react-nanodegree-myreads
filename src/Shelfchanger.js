@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import * as BooksAPI from './BooksAPI'
 
 class Shelfchanger extends Component {
-   
 
      updateBookshelfTypeSelector = (newBookshelf) => {
            this.setState(() => ({
@@ -20,7 +19,6 @@ class Shelfchanger extends Component {
               })
             )
         })
-        
       }
     
 
