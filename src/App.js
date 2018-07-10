@@ -35,9 +35,8 @@ class BooksApp extends React.Component {
          'title':'None'
         }
       ]
-      
-      
   	}
+
 
  componentDidMount() {
         BooksAPI.getAll()
