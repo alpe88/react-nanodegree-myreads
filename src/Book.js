@@ -11,17 +11,12 @@ updateBook = (book, newBookshelf) => {
         console.log(book.title +' is now on '+ newBookshelf)
           BooksAPI.update(book,newBookshelf)
              .then((book) => {
-               this.updateBookshelfType(newBookshelf)
-        })
-      }
-
-
- updateBookshelfType = (newBookshelf) => {
-           this.setState(() => ({
+              this.setState(() => ({
                 currentBookshelf: newBookshelf
             })
           )
-        }
+        })
+      }
   
 
 render(){
