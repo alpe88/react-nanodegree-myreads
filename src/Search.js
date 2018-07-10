@@ -5,7 +5,7 @@ import Bookshelf from './Bookshelf'
 
 class Search extends Component {
     state = {
-      searchquery: '',
+      searchQuery: '',
       searchResults: [],
       currentBookshelf: 'none'
     }
@@ -30,9 +30,16 @@ class Search extends Component {
           console.log('Running Search in BooksAPI')
           BooksAPI.search(searchQuery,maxResults)
               .then((searchResults) => {
-                this.setState(() => ({
-                  searchResults
-                }))
+                if(!searchResults.length){
+                  this.setState(() => ({
+                     searchResults:[]
+                  }))
+                }else{
+                  this.setState(() => ({
+                       searchResults:[]
+                    }))
+                }
+                
               })
     }
 
@@ -44,7 +51,7 @@ class Search extends Component {
     
 
 render(){
-    const { searchquery, searchResults, currentBookshelf } = this.state
+    const { searchQuery, searchResults, currentBookshelf} = this.state
     return (
       <div className="search-books">
             <div className="search-books-bar">
@@ -61,7 +68,7 @@ render(){
                   However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
                   you don't find a specific author or title. Every search is limited by search terms.
                 */}
-                <input type="text" placeholder="Search by title or author" value={searchquery}
+                <input type="text" placeholder="Search by title or author" value={searchQuery}
             onChange={(event) => this.handleInputChange(event.target.value)} autoFocus />
               </div>
             </div>
