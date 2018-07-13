@@ -11,30 +11,7 @@ class BooksApp extends React.Component {
       /**
       * Added array to store all books
       **/
-      books: [],
-    
-    bookshelfs: [
-        {
-         'id':'458485dfbxgc',
-         'type':'currentlyReading',
-         'title':'Currently Reading'
-        },
-        {
-         'id':'zcvbm07845',
-         'type':'wantToRead',
-         'title':'Want to Read'
-        },
-        {
-         'id':'4w6iet6yilu',
-         'type':'read',
-         'title':'Read'
-        },
-        {
-         'id':'08pt7e68576',
-         'type':'none',
-         'title':'None'
-        }
-      ]
+      books: []
   	}
 
 
@@ -47,11 +24,40 @@ class BooksApp extends React.Component {
           })
         }
 
+updateBook = (bookToChange, newBookshelf) => {
+        console.log(bookToChange.title +' is now on '+ newBookshelf)
+          BooksAPI.update(bookToChange,newBookshelf)
+             .then((book) => {
+              bookToChange.shelf = newBookshelf
+              let updatedBooks = this.state.books.filter( book => book.id !== bookToChange.id )
+              this.setState(() => ({
+                books: updatedBooks
+            })
+          )
+        })
+      }
 
   render() {
     
-    const { bookshelfs, books } = this.state
-    
+    const { books } = this.state
+    const bookshelfs = [
+        {
+         'type':'currentlyReading',
+         'title':'Currently Reading'
+        },
+        {
+         'type':'wantToRead',
+         'title':'Want to Read'
+        },
+        {
+         'type':'read',
+         'title':'Read'
+        },
+        {
+         'type':'none',
+         'title':'None'
+        }
+      ]
     return (
       <div className="app">
             <Route exact path='/' render={() => (
@@ -61,9 +67,9 @@ class BooksApp extends React.Component {
               </div>
               <div className="list-books-content">
                  <div>
-                    {bookshelfs.map((bookshelf) => (
-                     <div key={bookshelf.id}> 
-                       <Bookshelf bookshelf={bookshelf} books={books} />
+                    {bookshelfs.map((bookshelf, index) => (
+                     <div key={index}> 
+                       <Bookshelf bookshelf={bookshelf} updateBook={this.updateBook} books={books} />
                      </div>
                     ))}
           </div>
@@ -78,7 +84,7 @@ class BooksApp extends React.Component {
 
 
         <Route path='/search' render={({ history }) => (
-          <Search />
+          <Search updateBook={this.updateBook} />
          )} />
 
 
