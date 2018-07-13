@@ -7,14 +7,16 @@ class Search extends Component {
     state = {
       searchQuery: '',
       searchResults: [],
-      currentBookshelf: 'none'
+      currentBookshelf: 'none',
+      badResult: false,
     }
 
     updateSearch = (searchQuery) => {
       console.log('Now updating search')
       if(searchQuery !== ''){ this.findBook(searchQuery) }
       this.setState(() => ({
-        searchquery: searchQuery
+        searchQuery: searchQuery,
+        badResult: false
       }))
     }
 
@@ -22,7 +24,8 @@ class Search extends Component {
       console.log('Now clearing search')
         this.updateSearch('')
         this.setState(() => ({
-              searchResults: []
+              searchResults: [],
+              badResult: ''
              }))
     }
    
@@ -30,16 +33,23 @@ class Search extends Component {
           console.log('Running Search in BooksAPI')
           BooksAPI.search(searchQuery,maxResults)
               .then((searchResults) => {
-                if(!searchResults.length){
+                if(searchResults.length){
                   this.setState(() => ({
-                     searchResults:[]
+                     searchResults:searchResults,
                   }))
                 }else{
                   this.setState(() => ({
-                       searchResults:[]
+                       searchResults:[],
+                       badResult: true,
                     }))
                 }
                 
+              }).catch(err => {
+                 console.log('caught it!',err)
+                 this.setState(() => ({
+                       badResult: true,
+                       searchResults:[]
+                    }))
               })
     }
 
@@ -51,7 +61,9 @@ class Search extends Component {
     
 
 render(){
-    const { searchQuery, searchResults, currentBookshelf} = this.state
+    const { searchQuery, searchResults, currentBookshelf, badResult } = this.state
+    const { updateBook } = this.props
+    
     return (
       <div className="search-books">
             <div className="search-books-bar">
@@ -72,15 +84,14 @@ render(){
             onChange={(event) => this.handleInputChange(event.target.value)} autoFocus />
               </div>
             </div>
-               {searchResults.length !== 0 && (
                 <div className="search-books-results">
-                  <ol className="books-grid"><Bookshelf bookshelf={currentBookshelf} books={searchResults} /></ol>
+                  <ol className="books-grid">{badResult ? (
+                                              <p>No books found, please try another search term...</p> 
+                                              ) : (
+                                              <Bookshelf bookshelf={currentBookshelf} books={searchResults} updateBook={updateBook} />
+					)}</ol>
                 </div> 
-                )}
-                
-            
           </div>
-      
         )
     }
 }
