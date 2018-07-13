@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import Book from './Book'
 
-
-
 class Bookshelf extends Component {
 
+ 
+
+  
 
   
 render(){
-     const { bookshelf, books } = this.props
+     const { bookshelf, books, updateBook } = this.props
       return (
         <div>
           {bookshelf.type !== 'none' && (
@@ -20,7 +21,7 @@ render(){
                                <div key={book.id}> 
                                  {bookshelf.type === book.shelf && (
                                   <li>
-                                   <Book book={book} />
+                                   <Book book={book} updateBook={updateBook} booksOnShelf={books} />
                                   </li>
                                   )}
                                 </div>
