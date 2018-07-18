@@ -12,8 +12,8 @@ render(){
      const { bookshelf, books, updateBook } = this.props
       return (
         <div>
-          {bookshelf.type !== 'none' && (
-           <div className="bookshelf" key={bookshelf.id}>
+        
+            <div className="bookshelf" key={bookshelf.id}>
                     <h2 className="bookshelf-title">{bookshelf.title}</h2>
                       <div className="bookshelf-books">
                           <ol className="books-grid">
@@ -29,8 +29,8 @@ render(){
                             </ol>
                         </div>
                   </div>
-         )}
-       </div>  
+        
+        </div>
       )}
 }
 
