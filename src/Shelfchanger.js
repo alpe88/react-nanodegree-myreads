@@ -1,19 +1,15 @@
 import React, { Component } from 'react'
 
 class Shelfchanger extends Component {
-       
-       
-    
-
+       state = {
+          shelf: this.props.book.shelf
+       }
 render(){
      const { book, updateBook, booksOnShelf } = this.props
-     
      let currentShelf = 'none'
-     
-     for (let b of booksOnShelf ) {
-      if (b.id === book.id)  {
-        currentShelf = b.shelf
-        console.log('new shelf', currentShelf)
+     for (let item of booksOnShelf ) {
+      if (item.id === book.id)  {
+        currentShelf = item.shelf
         break
       }
     }
@@ -21,7 +17,7 @@ render(){
     	return (
         	<div key={book.id}>
                    <div className="book-shelf-changer">
-                     <select defaultValue={ currentShelf } onChange={(event) => updateBook(book, event.target.value)}>
+                     <select defaultValue={this.state.shelf}  onChange={(event) => updateBook(book, event.target.value)}>
                       <option value="move" disabled>Move to...</option>
                       <option value="currentlyReading">Currently Reading</option>
                       <option value="wantToRead">Want to Read</option>
