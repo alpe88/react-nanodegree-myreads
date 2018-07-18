@@ -1,11 +1,10 @@
 # react-nanodegree-myreads
+
 First project from the Nanodegree React program that serves to introduce students to the fundementals of React
 
 # MyReads Project
 
-This is the starter template for the final assessment project for Udacity's React Fundamentals course. The goal of this template is to save you time by providing a static example of the CSS and HTML markup that may be used, but without any of the React code that is needed to complete the project. If you choose to start with this template, your job will be to add interactivity to the app by refactoring the static code in this template.
-
-Of course, you are free to start this project from scratch if you wish! Just be sure to use [Create React App](https://github.com/facebookincubator/create-react-app) to bootstrap the project.
+This is a project meant to asses my understanding of React Fundamentals (thought as part of Udacity's React Fundamentals course). A starter template is used here, allowing me to focus on adding functionality to the project. The starter template uses [Create React App](https://github.com/facebookincubator/create-react-app) in addition to some css so that development can be begun quickly and effortlessly allowing me to experiment with React as quickly as possible.
 
 ## TL;DR
 
