@@ -11,7 +11,8 @@ class BooksApp extends React.Component {
       /**
       * Added array to store all books
       **/
-      books: []
+      books: [],
+      updatedBook: ''
   	}
 
 
@@ -29,11 +30,11 @@ updateBook = (bookToChange, newBookshelf) => {
           BooksAPI.update(bookToChange,newBookshelf)
              .then((book) => {
               bookToChange.shelf = newBookshelf
-              let updatedBooks = this.state.books.filter( book => book.id !== bookToChange.id )
+              let updatedBooks = this.state.books.filter( book => book.id !== bookToChange.id ).concat(bookToChange)
               this.setState(() => ({
-                books: updatedBooks
-            })
-          )
+                    books: updatedBooks
+                })
+              )
         })
       }
 
@@ -68,9 +69,11 @@ updateBook = (bookToChange, newBookshelf) => {
               <div className="list-books-content">
                  <div>
                     {bookshelfs.map((bookshelf, index) => (
-                     <div key={index}> 
+                    <div key={index}>  {bookshelf.type !== 'none' && (
+                     
                        <Bookshelf bookshelf={bookshelf} updateBook={this.updateBook} books={books} />
-                     </div>
+                    
+      )} </div>
                     ))}
           </div>
         </div>
