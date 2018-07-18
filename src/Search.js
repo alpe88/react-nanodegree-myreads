@@ -8,7 +8,7 @@ class Search extends Component {
       searchQuery: '',
       searchResults: [],
       currentBookshelf: 'none',
-      badResult: false,
+      badResult: false
     }
 
     updateSearch = (searchQuery) => {
@@ -25,7 +25,7 @@ class Search extends Component {
         this.updateSearch('')
         this.setState(() => ({
               searchResults: [],
-              badResult: ''
+              badResult: false
              }))
     }
    
@@ -34,13 +34,14 @@ class Search extends Component {
           BooksAPI.search(searchQuery,maxResults)
               .then((searchResults) => {
                 if(searchResults.length){
+                  
                   this.setState(() => ({
-                     searchResults:searchResults,
+                     searchResults:searchResults
                   }))
                 }else{
                   this.setState(() => ({
                        searchResults:[],
-                       badResult: true,
+                       badResult: true
                     }))
                 }
                 
@@ -62,9 +63,12 @@ class Search extends Component {
 
 render(){
     const { searchQuery, searchResults, currentBookshelf, badResult } = this.state
-    const { updateBook } = this.props
+    const { selectedBooks, updateBook } = this.props
+
+  
     
     return (
+      
       <div className="search-books">
             <div className="search-books-bar">
               <Link
@@ -89,7 +93,7 @@ render(){
                                               <p>No books found, please try another search term...</p> 
                                               ) : (
                                               <Bookshelf bookshelf={currentBookshelf} books={searchResults} updateBook={updateBook} />
-					)}</ol>
+                   )}</ol>
                 </div> 
           </div>
         )
