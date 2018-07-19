@@ -7,7 +7,10 @@ class Search extends Component {
     state = {
       searchQuery: '',
       searchResults: [],
-      currentBookshelf: 'none',
+      searchResultBookshelf: {
+         'type':'search',
+         'title':'Search Result'
+      },
       badResult: ''
     }
 
@@ -67,7 +70,7 @@ class Search extends Component {
     
 
 render(){
-    const { searchQuery, searchResults, currentBookshelf, badResult } = this.state
+    const { searchQuery, searchResults, searchResultBookshelf, badResult } = this.state
     const { selectedBooks, updateBook } = this.props
     console.log(searchResults)
     
@@ -96,7 +99,7 @@ render(){
                   <ol className="books-grid">{badResult ? (
                                               <p>No books found, please try another search term...</p> 
                                               ) : (
-                                              <Bookshelf bookshelf={currentBookshelf} books={searchResults} updateBook={updateBook} />
+                                              <Bookshelf bookshelf={searchResultBookshelf} books={searchResults} updateBook={updateBook} />
                    )}</ol>
                 </div> 
           </div>
