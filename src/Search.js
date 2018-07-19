@@ -8,7 +8,7 @@ class Search extends Component {
       searchQuery: '',
       searchResults: [],
       currentBookshelf: 'none',
-      badResult: false
+      badResult: ''
     }
 
     updateSearch = (searchQuery) => {
@@ -25,7 +25,7 @@ class Search extends Component {
         this.updateSearch('')
         this.setState(() => ({
               searchResults: [],
-              badResult: false
+              badResult: ''
              }))
     }
    
@@ -34,14 +34,19 @@ class Search extends Component {
           BooksAPI.search(searchQuery,maxResults)
               .then((searchResults) => {
                 if(searchResults.length){
-                  
+                  searchResults.forEach((foundBook, i) => {
+                      let shelvedBookinSearchResult = this.props.selectedBooks.find((b) => b.id === foundBook.id)
+                      foundBook.shelf = shelvedBookinSearchResult ? shelvedBookinSearchResult.shelf : 'none'
+                      searchResults[i] = foundBook
+                  })
                   this.setState(() => ({
-                     searchResults:searchResults
+                     searchResults:searchResults,
+                     badResult: false
                   }))
                 }else{
                   this.setState(() => ({
                        searchResults:[],
-                       badResult: true
+                       badResult:true
                     }))
                 }
                 
@@ -64,8 +69,7 @@ class Search extends Component {
 render(){
     const { searchQuery, searchResults, currentBookshelf, badResult } = this.state
     const { selectedBooks, updateBook } = this.props
-
-  
+    console.log(searchResults)
     
     return (
       
