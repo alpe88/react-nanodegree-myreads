@@ -8,8 +8,6 @@ class Search extends Component {
       searchQuery: '',
       searchResults: [],
       searchResultBookshelf: {
-         'type':'search',
-         'title':'Search Result'
       },
       badResult: ''
     }
@@ -19,7 +17,12 @@ class Search extends Component {
       if(searchQuery !== ''){ this.findBook(searchQuery) }
       this.setState(() => ({
         searchQuery: searchQuery,
-        badResult: false
+        badResult: false,
+        searchResultBookshelf: {
+         'id' : 'asgioj24Q@$ASR',
+         'type':'search',
+         'title':'Search Result'
+      }
       }))
     }
 
@@ -28,7 +31,8 @@ class Search extends Component {
         this.updateSearch('')
         this.setState(() => ({
               searchResults: [],
-              badResult: ''
+              badResult: '',
+              searchResultBookshelf: {}
              }))
     }
    
@@ -44,12 +48,18 @@ class Search extends Component {
                   })
                   this.setState(() => ({
                      searchResults:searchResults,
-                     badResult: false
+                     badResult: false,
+                     searchResultBookshelf: {
+                       'id' : 'asgioj24Q@$ASR',
+                       'type':'search',
+                       'title':'Search Result'
+                    }
                   }))
                 }else{
                   this.setState(() => ({
                        searchResults:[],
-                       badResult:true
+                       badResult:true,
+                       searchResultBookshelf: {}
                     }))
                 }
                 
@@ -57,7 +67,8 @@ class Search extends Component {
                  console.log('caught it!',err)
                  this.setState(() => ({
                        badResult: true,
-                       searchResults:[]
+                       searchResults:[],
+                       searchResultBookshelf: {}
                     }))
               })
     }
