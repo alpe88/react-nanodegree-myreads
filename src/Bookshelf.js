@@ -2,14 +2,10 @@ import React, { Component } from 'react'
 import Book from './Book'
 
 class Bookshelf extends Component {
-
  
-
-  
-
-  
 render(){
      const { bookshelf, books, updateBook } = this.props
+     {console.log(bookshelf)}
       return (
         <div>
         
@@ -24,6 +20,13 @@ render(){
                                    <Book book={book} updateBook={updateBook} booksOnShelf={books} />
                                   </li>
                                   )}
+                                
+                                   {bookshelf.type === 'search' && (
+                                    <li>
+                                     <Book book={book} updateBook={updateBook} booksOnShelf={books} />
+                                    </li>
+                                    )}
+                                      
                                 </div>
                                ))}
                             </ol>
